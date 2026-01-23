@@ -54,7 +54,7 @@ When reading the paper, focus on extracting:
 - **Accuracy**: Faithfully represent the paper's claims without overstatement
 - **Clarity**: A reader should understand the paper's essence without reading the original
 - **Critical Analysis**: Note strengths and weaknesses objectively
-- **Relevance Mapping**: Connect to lab priorities when applicable (check agents/context/priorities.md)
+- **Relevance Mapping**: Connect to lab priorities when applicable (check lab_vision.md)
 - **Actionability**: Highlight ideas that could inform ongoing work
 
 ## Edge Cases

@@ -121,11 +121,11 @@ Before working on specific areas, consult the relevant standards documents:
 
 ## When Creating New Work
 
-1. Check `agents/context/priorities.md` for current focus
-2. Review relevant agent charter in `agents/charters/`
-3. Create task file in appropriate queue (`backlog/`, `active/`, or `review/`)
-4. Follow the task file format with clear acceptance criteria
-5. Update shared context files when blocking issues arise
+1. Check `lab_vision.md` for current research focus and priorities
+2. Review relevant agent in `.claude/agents/` for task-specific guidance
+3. Add items to the appropriate stack's `_inbox/` directory
+4. Follow the entry format specified in each stack's README.md
+5. Use skills (slash commands) to process items through the pipeline
 
 ## Git Workflow
 
