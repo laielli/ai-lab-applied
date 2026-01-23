@@ -27,7 +27,7 @@ Stacks are queues with defined stages that items flow through. Each stack has a 
 
 ### Reading Stack
 
-For paper reading queue, summaries, and idea pipeline, see `reading_stack/README.md`. Papers flow through: inbox → summaries → `idea_stack`
+For paper reading queue, summaries, and idea pipeline, see `reading_stack/README.md`. Papers flow through: _inbox → summaries → `idea_stack`
 
 ### Idea Stack
 
@@ -35,11 +35,31 @@ For idea queue, see `idea_stack/README.md`. Ideas flow through: _inbox → devel
 
 ### Code Stack
 
-For code repository review queue and implementation analysis, see `code_stack/README.md`. Repos flow through: inbox → summaries (with quality assessment and key implementation details). Cross-references with reading_stack when repos correspond to papers.
+For code repository review queue and implementation analysis, see `code_stack/README.md`. Repos flow through: _inbox → summaries (with quality assessment and key implementation details). Cross-references with reading_stack when repos correspond to papers.
 
 ### Simulation Stack
 
 For pre-meeting rehearsal with simulated lab meeting Q&A, see `simulation_stack/README.md`. Generates synthetic feedback from three personas (Advisor, SME, Lay Researcher) and routes action items to appropriate stacks. Flow: _inbox → sessions
+
+### Experiment Stack
+
+For lab-wide experiment tracking, see `experiment_stack/README.md`. Experiments flow through: _inbox → in_progress → results
+
+### Figure Stack
+
+For figure and visualization requests, see `figure_stack/README.md`. Requests flow through: _inbox → figures
+
+### Writer Stack
+
+For writing tasks (paper sections, abstracts, responses), see `writer_stack/README.md`. Tasks flow through: _inbox → completed
+
+### Advisor Stack
+
+For processing advisor feedback and routing action items, see `advisor_stack/README.md`. Feedback flows through: _inbox → processed (with items routed to appropriate stacks)
+
+### Lab Meeting Stack
+
+For tracking lab meeting presentations and outcomes, see `lab_meeting_stack/README.md`. Meetings flow through: _inbox → completed (with follow-ups routed to appropriate stacks)
 
 ## Key Directory Layout
 
@@ -56,8 +76,9 @@ ai-lab-t2v/
 ├── experiment_stack/   # Lab-wide experiment tracking: _inbox → in_progress → results
 ├── figure_stack/       # Figure/visualization requests: _inbox → figures
 ├── writer_stack/       # Writing tasks: _inbox → completed
+├── advisor_stack/      # Advisor feedback processing: _inbox → processed
+├── lab_meeting_stack/  # Lab meeting tracking: _inbox → completed
 ├── papers/             # Paper-specific work (one subdirectory per paper, gitignored)
-├── group_sync/         # Research group simulation for presentations and feedback
 ├── docs/               # Documentation including workflow-schematic.md
 ```
 
@@ -66,17 +87,11 @@ ai-lab-t2v/
 Each paper lives in `papers/<paper_name>/` with:
 - `STATUS.md` - A up-to-date assessment of overall paper status and probability of meeting submission deadlines
 - `EXPERIMENT_SCHEDULE.md` - A master schedule of experiments, continually updated to reflect latests developments
-- `experiment_stack/` - 3-stage experiment pipeline: waiting → in_progress → completed
+- `experiment_stack/` - 3-stage experiment pipeline: _inbox → in_progress → results
 - `log/` — Experiment log and results
 - `src/` — Experiment source code
 - `paper/` — Paper drafts in LaTeX
 - `datasets/` — Paper-specific datasets
-
-## Structure of `group_sync`
-
-Simulates a research group where paper-specific ideas and progress are presented, discussed and valuable feedback is receieved and incorporated back into the respective paper project
-
-- `presentation_stack/` - 3-stage presentation pipeline: presentation → discussion → feedback
 
 ## Skills (Slash Commands)
 

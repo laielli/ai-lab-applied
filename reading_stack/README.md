@@ -5,40 +5,31 @@ A system for managing papers to read, generating summaries, and developing resea
 ## Purpose
 
 - **Inbox**: Queue of papers to read (arXiv links)
-- **Summaries**: Processed papers with focus area tags
-- **Ideas**: Structured pipeline from spark to paper PRD
+- **Summaries**: Processed papers with focus area tags and sparked ideas
 
 ## Directory Structure
 
 ```
 reading_stack/
-├── inbox/           # Papers waiting to be read
-├── summaries/       # Processed paper summaries
-└── ideas/
-    ├── nascent/     # Raw ideas from reading
-    ├── developing/  # Ideas being refined
-    └── ready/       # Ready for paper PRD
+├── _inbox/          # Papers waiting to be read
+└── summaries/       # Processed paper summaries
 ```
+
+**Note:** Ideas sparked from papers are extracted to `idea_stack/` via the `/extract-ideas` skill. See `idea_stack/README.md` for the idea pipeline.
 
 ## Workflow
 
 ```
-User drops arXiv link → inbox/PAPER-XXX.md
+User drops arXiv link → _inbox/PAPER-XXX.md
          ↓
 Read and summarize → summaries/PAPER-XXX.md (with focus tags)
          ↓
-Ideas sparked → ideas/nascent/IDEA-XXX.md
-         ↓
-Refine idea → ideas/developing/IDEA-XXX.md
-         ↓
-Ready for paper → ideas/ready/IDEA-XXX.md
-         ↓
-Create paper PRD → papers/<name>/prd/
+Extract ideas → idea_stack/_inbox/ (via /extract-ideas)
 ```
 
 ---
 
-## Paper Entry Format (inbox/)
+## Paper Entry Format (_inbox/)
 
 Filename: `PAPER-XXX-[first-author]-[year].md`
 
@@ -114,124 +105,6 @@ Filename: `PAPER-XXX-[first-author]-[year].md`
 
 ---
 
-## Idea Pipeline
-
-### Stage 1: Nascent (ideas/nascent/)
-
-Raw sparks from reading. Filename: `IDEA-XXX-[working-title].md`
-
-```markdown
-# Idea: [Working Title]
-
-- **ID**: IDEA-XXX
-- **Stage**: nascent
-- **Created**: YYYY-MM-DD
-- **Source Papers**: PAPER-001, PAPER-002
-
-## Spark
-[What's the core insight or question?]
-
-## Focus Areas
-- Feature Learning
-- Knowledge Distillation
-
-## Initial Thoughts
-[Rough notes, could be messy]
-```
-
-### Stage 2: Developing (ideas/developing/)
-
-Ideas being refined. Filename: `IDEA-XXX-[working-title].md`
-
-```markdown
-# Idea: [Working Title]
-
-- **ID**: IDEA-XXX
-- **Stage**: developing
-- **Created**: YYYY-MM-DD
-- **Promoted**: YYYY-MM-DD
-- **Source Papers**: PAPER-001, PAPER-002
-
-## Research Question
-[Clear articulation of the question]
-
-## Hypothesis
-[Testable prediction]
-
-## Why Novel
-[How this differs from existing work]
-
-## Potential Experiments
-- ...
-
-## Open Questions
-- ...
-
-## Promotion Criteria
-- [ ] Clear research question
-- [ ] Testable hypothesis
-- [ ] Novelty argument
-- [ ] Viable experiment plan
-```
-
-### Stage 3: Ready (ideas/ready/)
-
-Ready for paper PRD. Filename: `IDEA-XXX-[working-title].md`
-
-```markdown
-# Idea: [Working Title]
-
-- **ID**: IDEA-XXX
-- **Stage**: ready
-- **Created**: YYYY-MM-DD
-- **Ready**: YYYY-MM-DD
-- **Source Papers**: PAPER-001, PAPER-002
-
-## Research Question
-...
-
-## Hypothesis
-...
-
-## Why Novel
-...
-
-## Proposed Experiments
-...
-
-## Target Venue
-[Conference/journal and deadline]
-
-## Next Step
-Create paper PRD in papers/<paper-name>/prd/
-```
-
----
-
-## Promotion Criteria
-
-### nascent → developing
-
-- Has clear research question (not just "interesting observation")
-- Connects to at least one lab_vision focus area
-- Not obviously scooped or incremental
-
-### developing → ready
-
-- [ ] Clear, specific research question
-- [ ] Testable hypothesis with predicted outcome
-- [ ] Novelty argument (why this isn't already done)
-- [ ] Viable experiment plan (low compute, provable on small data)
-- [ ] Aligns with lab_vision strategic priorities
-
-### ready → paper PRD
-
-1. Create new paper directory in `papers/`
-2. Move idea content to `papers/<name>/prd/paper_requirements.md`
-3. Log handoff in `agents/context/handoffs.md`
-
----
-
 ## Focus Areas (from lab_vision.md)
 
 When tagging papers and ideas, use these focus areas:
@@ -246,9 +119,8 @@ When tagging papers and ideas, use these focus areas:
 ## ID Conventions
 
 - Papers: `PAPER-001`, `PAPER-002`, etc.
-- Ideas: `IDEA-001`, `IDEA-002`, etc.
 
-IDs are assigned sequentially across all stages. An idea keeps its ID as it moves through the pipeline.
+IDs are assigned sequentially.
 
 ---
 
@@ -256,7 +128,7 @@ IDs are assigned sequentially across all stages. An idea keeps its ID as it move
 
 When a paper has an associated code repository:
 
-1. **Add to code_stack**: Create entry in `code_stack/inbox/REPO-XXX.md`
+1. **Add to code_stack**: Create entry in `code_stack/_inbox/REPO-XXX.md`
 2. **Cross-reference**: Link PAPER-XXX ↔ REPO-XXX in both summaries
 3. **Implementation notes**: Reference code_stack summary in paper's "Potential Connections" section
 

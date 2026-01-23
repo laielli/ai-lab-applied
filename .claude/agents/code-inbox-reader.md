@@ -1,6 +1,7 @@
 ---
 name: code-inbox-reader
 description: "Use this agent when you need to create a new code_stack entry from a URL to a code repository. This includes GitHub repos, GitLab projects, or other hosted code repositories that should be analyzed and added to the reading/review pipeline.\\n\\n<example>\\nContext: User provides a GitHub URL for a repository they want to analyze.\\nuser: \"Add this repo to the code stack: https://github.com/anthropics/anthropic-cookbook\"\\nassistant: \"I'll use the code-inbox-reader agent to analyze this repository and create a code_stack entry.\"\\n<Task tool call to launch code-inbox-reader agent>\\n</example>\\n\\n<example>\\nContext: User finds an interesting implementation they want to study.\\nuser: \"I found this cool transformer implementation, can you add it? https://github.com/karpathy/nanoGPT\"\\nassistant: \"Let me launch the code-inbox-reader agent to create a code_stack entry for this repository.\"\\n<Task tool call to launch code-inbox-reader agent>\\n</example>\\n\\n<example>\\nContext: User wants to track a reference implementation for their research.\\nuser: \"We should look at how they implemented the attention mechanism here: https://github.com/huggingface/transformers\"\\nassistant: \"I'll use the code-inbox-reader agent to analyze this repository and create a structured entry in the code_stack.\"\\n<Task tool call to launch code-inbox-reader agent>\\n</example>"
+tools: Glob, Grep, Read, Edit, Write, WebFetch, WebSearch
 model: sonnet
 ---
 

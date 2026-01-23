@@ -1,6 +1,7 @@
 ---
 name: paper-inbox-reader
 description: "Use this agent when you need to add a new research paper to the reading stack from a PDF URL. This agent retrieves the paper, extracts key information, and creates a properly formatted entry in the inbox directory following the reading stack conventions.\\n\\nExamples:\\n\\n<example>\\nContext: User shares a paper URL they want to add to their reading queue.\\nuser: \"Add this paper to my reading stack: https://arxiv.org/pdf/2301.07041.pdf\"\\nassistant: \"I'll use the paper-inbox-reader agent to retrieve this paper and create a reading stack entry for it.\"\\n<Task tool call to paper-inbox-reader agent>\\n</example>\\n\\n<example>\\nContext: User discovers an interesting paper during a literature review.\\nuser: \"I found this relevant paper for our research: https://openreview.net/pdf?id=abc123\"\\nassistant: \"Let me use the paper-inbox-reader agent to add this paper to the reading stack with proper formatting.\"\\n<Task tool call to paper-inbox-reader agent>\\n</example>\\n\\n<example>\\nContext: User wants to queue multiple papers for later reading.\\nuser: \"Queue this paper for reading: https://proceedings.neurips.cc/paper/2023/file/example.pdf\"\\nassistant: \"I'll launch the paper-inbox-reader agent to create an inbox entry for this paper.\"\\n<Task tool call to paper-inbox-reader agent>\\n</example>"
+tools: Glob, Grep, Read, Edit, Write, WebFetch, WebSearch
 model: sonnet
 ---
 

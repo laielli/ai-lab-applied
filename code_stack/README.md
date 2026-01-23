@@ -11,14 +11,14 @@ A system for reviewing code repositories that correspond to research papers, und
 
 ```
 code_stack/
-├── inbox/           # Repos waiting to be reviewed
+├── _inbox/          # Repos waiting to be reviewed
 └── summaries/       # Processed repo summaries
 ```
 
 ## Workflow
 
 ```
-User drops GitHub link → inbox/REPO-XXX.md
+User drops GitHub link → _inbox/REPO-XXX.md
          ↓
 Review codebase → summaries/REPO-XXX.md (with assessments)
          ↓
@@ -27,7 +27,7 @@ Link to paper summary → reading_stack/summaries/PAPER-XXX.md (cross-reference)
 
 ---
 
-## Repo Entry Format (inbox/)
+## Repo Entry Format (_inbox/)
 
 Filename: `REPO-XXX-[repo-name].md`
 
@@ -219,7 +219,7 @@ IDs are assigned sequentially. When a repo corresponds to a paper, note the `PAP
 
 When reviewing a repo that corresponds to a paper:
 
-1. **If paper not yet read**: Add to `reading_stack/inbox/` first
+1. **If paper not yet read**: Add to `reading_stack/_inbox/` first
 2. **Cross-reference**: Link REPO-XXX ↔ PAPER-XXX in both summaries
 3. **Implementation notes**: Reference repo summary in paper's "Potential Connections" section
 
