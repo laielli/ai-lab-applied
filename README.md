@@ -18,7 +18,6 @@ ai-lab-t2v/
 ├── figure_stack/       # Figure/visualization requests
 ├── writer_stack/       # Writing tasks
 ├── papers/             # Paper projects (independent git repos)
-├── group_sync/         # Research group presentation simulation
 └── docs/               # Workflow diagrams and documentation
 ```
 
