@@ -4,83 +4,67 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Purpose
 
-This is an AI Lab framework designed for agent-driven applied research in **text-to-video retrieval**, with focus on **temporal reasoning** and **cross-modal alignment**. The goal is publishing papers at top-tier AI conferences (CVPR, ICCV, NeurIPS, ACL, EMNLP). The framework treats "Papers" as equivalent to "Products" and uses Paper Requirements Documents (PRDs) instead of traditional product requirements.
+This is an AI Lab framework designed for agent-driven applied research in **text-to-video retrieval**. The goal is publishing papers at top-tier AI conferences (CVPR, ICCV, NeurIPS, ACL, EMNLP)
 
 ## Research Direction
 
-For lab research focus, scope, and taste, see `lab_vision.md`. All agents should consult this document when making decisions about research direction, evaluating paper proposals, or prioritizing work.
-
-## Reading Stack
-
-For paper reading queue, summaries, and idea pipeline, see `reading_stack/README.md`. Papers flow through: inbox → summaries → ideas (nascent → developing → ready) → paper PRD.
-
-## Code Stack
-
-For code repository review queue and implementation analysis, see `code_stack/README.md`. Repos flow through: inbox → summaries (with quality assessment and key implementation details). Cross-references with reading_stack when repos correspond to papers.
+For lab research focus, scope, and taste, see `lab_vision.md`. All agents should consult this document when making decisions about research direction, evaluating paper proposals, or prioritizing work
 
 ## Directory Structure Philosophy
 
+The directory hierarchy is split into two tiers:
+1. Top tier is where ideas are born, nurtured, and developed into paper projects
+2. Bottom tier is where individual paper projects are further developed into submissions are top conferences
+
 The repository follows these design principles:
 
-1. **Flat over nested** — Avoid deep directory hierarchies
-2. **Explicit over implicit** — Charters define scope, not folder structure
-3. **Centralized routing** — One task queue, not bilateral exchanges
-4. **Papers are separate** — Agent structure doesn't change when papers are added
-5. **Minimal ceremony** — Add structure only when needed
+1. **Flat over nested** — Despite the initial two-tier structure, we still aim to avoid deep directory hierarchies
+2. **Minimal ceremony** — Add structure only when needed
+
+## Stacks
+
+There are three stacks maintained at the top tier to facilitate exploration and high influx of new ideas
+
+### Reading Stack
+
+For paper reading queue, summaries, and idea pipeline, see `reading_stack/README.md`. Papers flow through: inbox → summaries → `idea_stack`
+
+### Idea Stack
+
+For idea queue, see `idea_stack/README.md`. Ideas flow through: nascent → developing → launched / new project in `papers`
+
+### Code Stack
+
+For code repository review queue and implementation analysis, see `code_stack/README.md`. Repos flow through: inbox → summaries (with quality assessment and key implementation details). Cross-references with reading_stack when repos correspond to papers.
 
 ## Key Directory Layout
 
 ```
-ai-lab/
+ai-lab-t2v/
 ├── standards/          # Constraints all agents follow (engineering, ml, paper, writing, search, decisions)
-├── shared_stack/       # Common technical assets (ml models, training, datasets)
-├── reading_stack/      # Paper reading queue, summaries, and idea pipeline
+├── reading_stack/      # Paper reading queue, and summaries. Ideas resulting from paper summaries are added to idea_stack
+├── idea_stack/         # 3-stage idea development queue: nascent → developing → launched
 ├── code_stack/         # Code repo review queue and implementation analysis
 ├── papers/             # Paper-specific work (one subdirectory per paper)
-├── execution/          # Operations (roadmap, submissions, metrics)
-└── agents/             # Agent orchestration (charters, tasks, context)
+├── group_sync/         # Simulates a research group where ideas and progress are presented and feedback is receieved
 ```
 
-## Agent System
-
-Work is organized by function-based agents, not human org charts:
-
-- **orchestrator** — Prioritization, routing, unblocking
-- **explorer** — Literature search, novelty discovery, disparate connections
-- **paper** — Requirements, specs, acceptance criteria
-- **engineering** — Implementation, code review, quality
-- **ml** — Models, training, evaluation
-- **communication** — Explanation, presentation, content
-
-## Task Management
-
-Tasks flow through: `backlog/` → `active/` → `review/` → done
-
-Task files should be markdown with:
-- ID, Owner (agent), Paper, Created date
-- Description and acceptance criteria
-- Handoff notes from previous agent
-
-Example task file location: `agents/tasks/active/TASK-001.md`
-
-## Shared Context
-
-All agents coordinate through `agents/context/`:
-- `priorities.md` — Current focus areas
-- `blockers.md` — Known issues preventing progress
-- `handoffs.md` — Recent cross-agent communications
-
-## Paper Development Workflow
+## Structure of `papers/`
 
 Each paper lives in `papers/<paper_name>/` with:
-- `prd/` — Paper requirements and objectives
-- `specs/` — Technical specifications
+- `STATUS.md` - A up-to-date assessment of overall paper status and probability of meeting submission deadlines
+- `EXPERIMENT_SCHEDULE.md` - A master schedule of experiments, continually updated to reflect latests developments
+- `experiment_stack/` - 3-stage experiment pipeline: waiting → in_progress → completed
 - `log/` — Experiment log and results
 - `src/` — Experiment source code
-- `evals/` — Paper-specific evaluations
 - `paper/` — Paper drafts in LaTeX
-- `presentation/` — Presentation materials
 - `datasets/` — Paper-specific datasets
+
+## Structure of `group_sync`
+
+Simulates a research group where paper-specific ideas and progress are presented, discussed and valuable feedback is receieved and incorporated back into the respective paper project
+
+- `presentation_stack/` - 3-stage presentation pipeline: presentation → discussion → feedback
 
 ## Standards to Follow
 
