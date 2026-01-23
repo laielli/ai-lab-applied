@@ -1,46 +1,77 @@
 # AI Lab — Text-to-Video Retrieval
 
-An agent-driven applied research lab focused on **text-to-video retrieval**, with emphasis on **temporal reasoning** and **cross-modal alignment**. Optimized for publishing papers at top-tier AI conferences (CVPR, ICCV, NeurIPS, ACL, EMNLP).
-
-## Quick Start
-
-1. **Define priorities**: Update `agents/context/priorities.md`
-2. **Create a paper**: Follow structure in `papers/README.md`
-3. **Create tasks**: Add to `agents/tasks/backlog/`
-4. **Track progress**: Update `execution/roadmap.md`
+An agent-driven applied research lab focused on **text-to-video retrieval**. Optimized for publishing papers at top-tier AI conferences (CVPR, ICCV, NeurIPS, ACL, EMNLP).
 
 ## Structure
 
 ```
-ai-lab/
+ai-lab-t2v/
+├── .claude/            # Agent charters and skill definitions
+│   ├── agents/         # Agent system prompts
+│   └── skills/         # Slash command definitions
 ├── standards/          # Constraints all agents follow
-├── shared_stack/       # Common technical assets
-├── papers/             # Paper-specific work (one per paper)
-├── execution/          # Roadmap, submissions, metrics
-└── agents/             # Agent charters, tasks, context
+├── reading_stack/      # Paper reading queue → summaries → ideas
+├── idea_stack/         # Idea pipeline: _inbox → developing → ready
+├── code_stack/         # Code repo review and analysis
+├── simulation_stack/   # Pre-meeting rehearsal with simulated Q&A
+├── experiment_stack/   # Lab-wide experiments: _inbox → in_progress → results
+├── figure_stack/       # Figure/visualization requests
+├── writer_stack/       # Writing tasks
+├── papers/             # Paper projects (independent git repos)
+├── group_sync/         # Research group presentation simulation
+└── docs/               # Workflow diagrams and documentation
 ```
 
-## Agent System
+## Stack-Based Workflow
 
-Work is organized by functional agents:
-- **orchestrator** — Prioritization and coordination
-- **explorer** — Literature search and discovery
-- **paper** — Requirements and specs
-- **engineering** — Implementation and code review
-- **ml** — Models, training, evaluation
-- **communication** — Writing and presentations
+Content flows through stacks with defined stages:
 
-See `agents/charters/` for detailed agent responsibilities.
+| Stack | Flow | Purpose |
+|-------|------|---------|
+| `reading_stack` | _inbox → summaries | Paper reading and summarization |
+| `idea_stack` | _inbox → developing → ready | Idea development pipeline |
+| `code_stack` | _inbox → summaries | Code repository analysis |
+| `simulation_stack` | _inbox → sessions | Pre-meeting Q&A rehearsal |
+| `experiment_stack` | _inbox → in_progress → results | Experiment lifecycle |
 
-## Workflow
+## Skills (Slash Commands)
 
-1. Tasks flow: `backlog/` → `active/` → `review/` → done
-2. All agents read `agents/context/` for coordination
-3. Standards in `standards/` apply to all work
-4. Papers live in `papers/<paper_name>/`
+| Command | Description |
+|---------|-------------|
+| `/read <url>` | Add paper from URL, read, and summarize |
+| `/extract-ideas` | Extract ideas from paper summaries |
+| `/promote-idea <ID>` | Evaluate and promote idea to next stage |
+| `/launch-paper <ID>` | Create paper project from ready idea |
+| `/run-experiment <cmd>` | Track experiments through lifecycle |
+| `/simulate-meeting <ID>` | Simulate lab meeting Q&A with 3 personas |
+| `/dashboard` | Update evaluation dashboards |
 
-## Getting Started
+## Research Cycle
 
-- Read `CLAUDE.md` for AI assistant guidance
-- Review `ai_lab_framework.md` for design philosophy
-- Check `agents/context/priorities.md` for current focus
+```
+Paper URL → reading_stack → idea_stack → papers/<name>/
+                                              ↓
+                              ┌───────────────┴───────────────┐
+                              ↓                               ↓
+                      experiment_stack              simulation_stack
+                              ↓                               ↓
+                          results ──────────────────→ real lab meeting
+                              ↓
+                         SUBMISSION
+```
+
+See `docs/workflow-schematic.md` for detailed diagrams.
+
+## Key Files
+
+- `CLAUDE.md` — Agent guidance and repository conventions
+- `lab_vision.md` — Research focus, scope, and taste
+- `standards/*.md` — Engineering, ML, paper, and writing standards
+
+## Papers
+
+Each paper lives in `papers/<paper_name>/` as an independent git repository with:
+- `STATUS.md` — Current status and deadline probability
+- `experiment_stack/` — Paper-specific experiments
+- `src/` — Experiment code
+- `paper/` — LaTeX drafts
