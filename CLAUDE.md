@@ -23,7 +23,7 @@ The repository follows these design principles:
 
 ## Stacks
 
-There are three stacks maintained at the top tier to facilitate exploration and high influx of new ideas
+Stacks are queues with defined stages that items flow through. Each stack has a README.md documenting its format and workflow.
 
 ### Reading Stack
 
@@ -31,22 +31,34 @@ For paper reading queue, summaries, and idea pipeline, see `reading_stack/README
 
 ### Idea Stack
 
-For idea queue, see `idea_stack/README.md`. Ideas flow through: nascent → developing → launched / new project in `papers`
+For idea queue, see `idea_stack/README.md`. Ideas flow through: _inbox → developing → ready → launched (new project in `papers`)
 
 ### Code Stack
 
 For code repository review queue and implementation analysis, see `code_stack/README.md`. Repos flow through: inbox → summaries (with quality assessment and key implementation details). Cross-references with reading_stack when repos correspond to papers.
 
+### Simulation Stack
+
+For pre-meeting rehearsal with simulated lab meeting Q&A, see `simulation_stack/README.md`. Generates synthetic feedback from three personas (Advisor, SME, Lay Researcher) and routes action items to appropriate stacks. Flow: _inbox → sessions
+
 ## Key Directory Layout
 
 ```
 ai-lab-t2v/
+├── .claude/            # Agent charters and skill definitions
+│   ├── agents/         # Agent system prompts (e.g., lab-meeting-simulator.md)
+│   └── skills/         # Skill definitions for slash commands (e.g., simulate-meeting/)
 ├── standards/          # Constraints all agents follow (engineering, ml, paper, writing, search, decisions)
-├── reading_stack/      # Paper reading queue, and summaries. Ideas resulting from paper summaries are added to idea_stack
-├── idea_stack/         # 3-stage idea development queue: nascent → developing → launched
+├── reading_stack/      # Paper reading queue and summaries → idea_stack
+├── idea_stack/         # 3-stage idea pipeline: _inbox → developing → ready
 ├── code_stack/         # Code repo review queue and implementation analysis
-├── papers/             # Paper-specific work (one subdirectory per paper)
-├── group_sync/         # Simulates a research group where ideas and progress are presented and feedback is receieved
+├── simulation_stack/   # Pre-meeting rehearsal with simulated Q&A: _inbox → sessions
+├── experiment_stack/   # Lab-wide experiment tracking: _inbox → in_progress → results
+├── figure_stack/       # Figure/visualization requests: _inbox → figures
+├── writer_stack/       # Writing tasks: _inbox → completed
+├── papers/             # Paper-specific work (one subdirectory per paper, gitignored)
+├── group_sync/         # Research group simulation for presentations and feedback
+├── docs/               # Documentation including workflow-schematic.md
 ```
 
 ## Structure of `papers/`
@@ -65,6 +77,22 @@ Each paper lives in `papers/<paper_name>/` with:
 Simulates a research group where paper-specific ideas and progress are presented, discussed and valuable feedback is receieved and incorporated back into the respective paper project
 
 - `presentation_stack/` - 3-stage presentation pipeline: presentation → discussion → feedback
+
+## Skills (Slash Commands)
+
+Skills are invoked via slash commands. Key skills:
+
+| Command | Description |
+|---------|-------------|
+| `/read <url>` | Add paper from URL → read → summarize |
+| `/extract-ideas` | Paper summaries → idea_stack/_inbox |
+| `/promote-idea <ID>` | Evaluate & promote idea to next stage |
+| `/launch-paper <ID>` | Ready idea → papers/<name>/ project |
+| `/run-experiment <cmd>` | Track experiments: start \| complete \| update \| list |
+| `/simulate-meeting <ID>` | Simulate lab meeting Q&A: create \| list \| run |
+| `/dashboard` | Update evaluation dashboards for ideas and papers |
+
+See `docs/workflow-schematic.md` for visual diagrams of how content flows through stacks.
 
 ## Standards to Follow
 
