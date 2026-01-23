@@ -47,10 +47,10 @@ Filename: `PAPER-XXX-[first-author]-[year].md`
 Brief note on why this paper is relevant to lab vision.
 
 ## Focus Areas
-- [ ] Mechanistic DL Theory
-- [ ] Feature Learning
-- [ ] Knowledge Distillation
-- [ ] Theory-Inspired Applications
+- [ ] Temporal Reasoning
+- [ ] Cross-Modal Alignment
+- [ ] Efficient Video Representation
+- [ ] Benchmark and Evaluation
 
 ## Notes
 Notes from a first-pass reading.
@@ -73,8 +73,8 @@ Filename: `PAPER-XXX-[first-author]-[year].md`
 - **Summarized**: YYYY-MM-DD
 
 ## Focus Area Tags
-- Mechanistic DL Theory
-- Feature Learning
+- Temporal Reasoning
+- Cross-Modal Alignment
 
 ## One-Line Summary
 [Single sentence capturing the core contribution]
@@ -109,10 +109,10 @@ Filename: `PAPER-XXX-[first-author]-[year].md`
 
 When tagging papers and ideas, use these focus areas:
 
-1. **Mechanistic DL Theory** - How/why neural networks learn, learning dynamics
-2. **Feature Learning** - How representations emerge, what determines features learned
-3. **Knowledge Distillation** - Theoretical foundations, student-teacher dynamics
-4. **Theory-Inspired Applications** - Applied methods from theoretical understanding
+1. **Temporal Reasoning** - Modeling temporal relationships in video for retrieval
+2. **Cross-Modal Alignment** - Mapping text queries to video content in shared embedding spaces
+3. **Efficient Video Representation** - Scalable encoding for large-scale video retrieval
+4. **Benchmark and Evaluation** - Rigorous evaluation on standard benchmarks
 
 ---
 
