@@ -25,6 +25,3 @@ Thumbs.db
 # Papers (independent repos, not tracked)
 papers/
 !papers/README.md
-
-# Temporary files
-.claude/
