@@ -9,6 +9,14 @@
 - Efficient Video Representation
 - Benchmark and Evaluation
 
+## Initial Thoughts
+
+- **The Surprising Effectiveness of Simple Average Pooling**: This is perhaps the most surprising aspect of the paper: Simple average pooling over frame embeddings for video representation outperforms complex temporal attention/modeling. This raises questions: How can it be that the lossiness of average pooling does not significantly hamper this approach? Do the individual embeddings encode temporal aspects somehow? Perhaps the RoPE embeddings are at play here? If so, can this effect be amplified or harnessed for even better results? An investigation into this result could be the basis for an interesting paper.
+
+- **PE-Video Dataset is a valuable resource**: This new training resource seems unprecedented in terms of the combination of quality and scale. Usually the addition of such a dataset to a research subfield opens up contribution opportunities. We should think deeply about what types of experiments are only now possible due to the presence of this resource.
+
+- **Is the Video-Data Engine practically useful?**: The Video-Data Engine itself may not lead directly to a research contribution, but such a pipeline could be useful for internal model training purposes.
+
 ## One-Line Summary
 
 Perception Encoder demonstrates that optimal visual embeddings for downstream tasks exist in intermediate transformer layers rather than the final output, and introduces language alignment and spatial alignment techniques to extract these hidden representations, achieving SOTA on both image and video benchmarks.
@@ -220,6 +228,10 @@ Research in the broader VLM community shows these models suffer from "time blind
 - **IDEA-001**: Investigate intermediate layers of video encoders for temporal reasoning features using PE's probing methodology. Hypothesis: temporal features exist but are compressed at output layer similar to spatial/language features.
 
 - **IDEA-002**: Build temporal reasoning module on top of frozen PE-Core. Leverage their strong frame representations while adding explicit temporal modeling that's missing.
+
+- **IDEA-003**: Investigate the surprising effectiveness of simple average pooling. How can it be that the lossiness of average pooling does not significantly hamper this approach? Is it a benchmark issue? Do the individual embeddings encode temporal aspects somehow? Perhaps the RoPE embeddings are at play here? Whatever the cause, can it be amplified or harnessed for even better results?
+
+- **IDEA-004**: A toy dataset and model for video retrieval. Experimentation for video retrieval can be prohibitive due to the sheer scale of models and datasets. What if there were a CIFAR or ARK-style dataset that consisted of small videos; small in terms of video dimensions, but still exhibited temporal features needed to solve action or motion-centric tasks? Can we develop such a dataset and demonstrate some of the findings from PerceptionEncoder could have been discovered on a much smaller dataset/model?
 
 ---
 
