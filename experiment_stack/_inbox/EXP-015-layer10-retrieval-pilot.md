@@ -94,45 +94,51 @@ purpose: Upper bound on layer 10's retrieval potential
 ## Setup
 
 - **Model**: PE-Core-L14-336
-- **Dataset**: MSR-VTT 1K-A test split (standard text-video retrieval benchmark)
+- **Dataset**: PE-Video filtered subset (150 videos with human/model captions)
 - **Hardware**: Single GPU
 - **Frames**: 8 per video
 
-**Why MSR-VTT instead of K400?** K400 is an action recognition dataset with class labels, not descriptive captions. MSR-VTT provides natural language descriptions suitable for text-video retrieval evaluation.
+**Why PE-Video?**
+- Already downloaded and processed (no new dataset dependencies)
+- Has high-quality captions (human_caption and model_caption fields)
+- PE model is trained on this data, so baseline performance should be strong
+- Same dataset used for Exp 3.1 layer probing, enabling direct comparison
 
 ## Configuration
 
 ```yaml
 model: PE-Core-L14-336
-dataset: msrvtt_1ka  # Standard 1000-video test split
-num_videos: 1000
+dataset: pe-video-filtered  # 150 videos with captions
+num_videos: 150
 frames_per_video: 8
 layers:
-  text_retrieval: [10, 23]  # Compare both
+  text_retrieval: [10, 23]  # Compare both (1-indexed; API uses 0-indexed)
   video_video: 10  # For reranking
 text_encoder: PE text tower (layer 23)
 retrieval_stages:
   - phase_a: layer10_zero_shot
-  - phase_b: hybrid_reranking
+  - phase_b: temporal_reranking
 ```
 
 ## Procedure
 
 ### Phase A: Zero-Shot Baseline
-1. Load MSR-VTT 1K-A test split (1000 video-caption pairs)
+1. Load PE-Video filtered subset (150 video-caption pairs)
 2. Extract layer 10 embeddings for all frames, average pool
+   - Note: layer 10 = index 9 in 0-indexed API
 3. Apply existing `self.proj` (trained for layer 23) to layer 10 pooled features
 4. Compute text embeddings (layer 23, standard)
-5. Run text-to-video retrieval
+5. Run text-to-video retrieval (diagonal correspondence: caption[i] matches video[i])
 6. Compare R@1, R@5, R@10 to layer 23 baseline
 
 ### Phase B: Temporal-Aware Reranking
-1. Classify queries as temporal vs non-temporal using heuristics + manual validation
-2. Run layer 23 retrieval to get top-100 candidates per query
-3. For temporal queries, apply two reranking strategies:
+1. Classify queries as temporal vs non-temporal using heuristics
+2. Print sample temporal queries for manual validation
+3. Run layer 23 retrieval to get top-K candidates per query
+4. For temporal queries, apply two reranking strategies:
    - **Strategy 1 (Coherence)**: Boost videos similar to other top candidates in L10 space
-   - **Strategy 2 (Temporal Distinctiveness)**: Boost videos where L10 ranking differs most from L23
-4. Compare performance on temporal vs non-temporal query subsets
+   - **Strategy 2 (Distinctiveness)**: Boost videos where L10 ranking differs from L23
+5. Compare performance on temporal vs non-temporal query subsets
 
 **Hypothesis for Phase B**: If layer 10 captures temporal information that layer 23 loses, then:
 - Videos ranked higher by L10 than L23 may be better temporal matches
@@ -154,10 +160,10 @@ retrieval_stages:
 
 ## Baselines
 
-- **Layer 23 (standard)**: Expected ~45-50% R@1 on MSR-VTT 1K-A (typical CLIP-based methods)
-- **Random**: 0.1% R@1 (1/1000 videos)
+- **Layer 23 (standard)**: Expected high R@1 on PE-Video (PE's own training data)
+- **Random**: 0.67% R@1 (1/150 videos)
 
-Note: The 76.9% figure previously cited was from K400 action recognition, not text-video retrieval.
+Note: PE-Video is PE's training data, so layer 23 baseline should be strong. This makes it a good test of whether the alignment gap severely hurts layer 10.
 
 ## Compute Budget
 
@@ -187,10 +193,10 @@ Note: The 76.9% figure previously cited was from K400 action recognition, not te
 
 - [x] Layer probing shows layer 10 has more temporal info (64.3%)
 - [x] PE architecture analysis confirming alignment constraints
-- [ ] MSR-VTT dataset downloaded (videos + captions)
+- [x] PE-Video dataset downloaded (150 videos with captions)
 - [x] PE feature extraction code ready (PELayerExtractor)
 - [x] Text-video retrieval pipeline implemented
-- [ ] Temporal query annotation/classification (heuristic + manual validation)
+- [x] Temporal query classification (heuristic, validated via sample printing)
 
 ## Implementation
 
