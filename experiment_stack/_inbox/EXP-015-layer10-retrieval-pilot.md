@@ -94,15 +94,17 @@ purpose: Upper bound on layer 10's retrieval potential
 ## Setup
 
 - **Model**: PE-Core-L14-336
-- **Dataset**: K400 validation subset (1000 videos for pilot)
+- **Dataset**: MSR-VTT 1K-A test split (standard text-video retrieval benchmark)
 - **Hardware**: Single GPU
 - **Frames**: 8 per video
+
+**Why MSR-VTT instead of K400?** K400 is an action recognition dataset with class labels, not descriptive captions. MSR-VTT provides natural language descriptions suitable for text-video retrieval evaluation.
 
 ## Configuration
 
 ```yaml
 model: PE-Core-L14-336
-dataset: k400_val_subset
+dataset: msrvtt_1ka  # Standard 1000-video test split
 num_videos: 1000
 frames_per_video: 8
 layers:
@@ -117,20 +119,24 @@ retrieval_stages:
 ## Procedure
 
 ### Phase A: Zero-Shot Baseline
-1. Sample 1000 videos from K400 validation
+1. Load MSR-VTT 1K-A test split (1000 video-caption pairs)
 2. Extract layer 10 embeddings for all frames, average pool
 3. Apply existing `self.proj` (trained for layer 23) to layer 10 pooled features
 4. Compute text embeddings (layer 23, standard)
 5. Run text-to-video retrieval
 6. Compare R@1, R@5, R@10 to layer 23 baseline
 
-### Phase B: Hybrid Reranking
-1. Classify queries as temporal vs non-temporal (manual annotation or heuristics)
+### Phase B: Temporal-Aware Reranking
+1. Classify queries as temporal vs non-temporal using heuristics + manual validation
 2. Run layer 23 retrieval to get top-100 candidates per query
-3. For temporal queries:
-   - Compute layer 10 video-video similarity matrix within top-100
-   - Rerank based on temporal coherence score
+3. For temporal queries, apply two reranking strategies:
+   - **Strategy 1 (Coherence)**: Boost videos similar to other top candidates in L10 space
+   - **Strategy 2 (Temporal Distinctiveness)**: Boost videos where L10 ranking differs most from L23
 4. Compare performance on temporal vs non-temporal query subsets
+
+**Hypothesis for Phase B**: If layer 10 captures temporal information that layer 23 loses, then:
+- Videos ranked higher by L10 than L23 may be better temporal matches
+- Videos with high L10 coherence may share temporal patterns with other relevant videos
 
 ## Metrics
 
@@ -148,8 +154,10 @@ retrieval_stages:
 
 ## Baselines
 
-- **Layer 23 (standard)**: Current PE approach (~76.9% on full K400)
+- **Layer 23 (standard)**: Expected ~45-50% R@1 on MSR-VTT 1K-A (typical CLIP-based methods)
 - **Random**: 0.1% R@1 (1/1000 videos)
+
+Note: The 76.9% figure previously cited was from K400 action recognition, not text-video retrieval.
 
 ## Compute Budget
 
@@ -179,10 +187,10 @@ retrieval_stages:
 
 - [x] Layer probing shows layer 10 has more temporal info (64.3%)
 - [x] PE architecture analysis confirming alignment constraints
-- [ ] K400 validation videos accessible
-- [ ] PE feature extraction code ready (PELayerExtractor)
-- [ ] Text-video retrieval pipeline implemented
-- [ ] Temporal query annotation/classification
+- [ ] MSR-VTT dataset downloaded (videos + captions)
+- [x] PE feature extraction code ready (PELayerExtractor)
+- [x] Text-video retrieval pipeline implemented
+- [ ] Temporal query annotation/classification (heuristic + manual validation)
 
 ## Implementation
 
