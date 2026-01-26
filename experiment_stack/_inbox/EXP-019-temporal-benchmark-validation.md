@@ -1,6 +1,6 @@
 # Experiment: Temporal Benchmark Go/No-Go Validation
 
-- **ID**: EXP-018
+- **ID**: EXP-019
 - **Created**: 2026-01-25
 - **Paper**: IDEA-009-temporal-fourier-signatures
 - **Source**: SIM-006 (Advisor Q2)
