@@ -69,6 +69,8 @@ ai-lab-t2v/
 │   ├── agents/         # Agent system prompts (e.g., lab-meeting-simulator.md)
 │   └── skills/         # Skill definitions for slash commands (e.g., simulate-meeting/)
 ├── standards/          # Constraints all agents follow (engineering, ml, paper, writing, search, decisions)
+├── shared/             # Shared Python modules (compute targets, utilities)
+│   └── compute/        # ComputeTarget abstraction for local/remote execution
 ├── reading_stack/      # Paper reading queue and summaries → idea_stack
 ├── idea_stack/         # 3-stage idea pipeline: _inbox → developing → ready
 ├── code_stack/         # Code repo review queue and implementation analysis
@@ -104,6 +106,11 @@ Skills are invoked via slash commands. Key skills:
 | `/promote-idea <ID>` | Evaluate & promote idea to next stage |
 | `/launch-paper <ID>` | Ready idea → papers/<name>/ project |
 | `/run-experiment <cmd>` | Track experiments: start \| complete \| update \| list |
+| `/suggest-experiment <paper>` | Generate next experiment spec for paper |
+| `/verify-experiment <EXP-ID>` | Review experiment soundness before running |
+| `/implement-experiment <EXP-ID>` | Generate Python code from experiment spec |
+| `/verify-code <EXP-ID>` | Review code before execution |
+| `/execute-experiment <EXP-ID>` | Run on local or Lambda.ai remote compute |
 | `/simulate-meeting <ID>` | Simulate lab meeting Q&A: create \| list \| run |
 | `/dashboard` | Update evaluation dashboards for ideas and papers |
 
