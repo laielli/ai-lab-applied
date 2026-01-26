@@ -83,6 +83,10 @@ python src/download_pe_video.py \
 
 ## Implementation
 
+- **Code**: `papers/idea-009-tfs/scripts/extract_pe_features.py`
+- **Shell wrapper**: `papers/idea-009-tfs/scripts/exp17_extract_pe_features.sh`
+- **Generated**: 2026-01-25
+
 ### Step 1: Download Videos (existing script)
 
 Reuse from idea-003-avg-pooling: `src/download_pe_video.py`
@@ -230,11 +234,11 @@ print(f"Baseline retrieval: R@1={r1:.1%}, R@5={r5:.1%}, R@10={r10:.1%}")
 - [x] PE-Core model weights (`facebook/PE-Core-L14-336`)
 - [x] Download script (`papers/idea-003-avg-pooling/src/download_pe_video.py`)
 - [x] PE utilities (`papers/idea-003-avg-pooling/src/pe_utils.py`)
-- [ ] Feature extraction script (create as described above)
+- [x] Feature extraction script (`papers/idea-009-tfs/scripts/extract_pe_features.py`)
 
 ## Blockers
 
-None - ready to implement extraction script and execute.
+None - ready to execute.
 
 ## Connection to EXP-018
 
