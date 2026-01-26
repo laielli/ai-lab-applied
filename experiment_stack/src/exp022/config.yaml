@@ -1,0 +1,39 @@
+# EXP-022: YouCook2 Density Analysis Configuration
+# Part A: Ground-truth density analysis (CPU-only)
+
+# Dataset configuration
+dataset: "lmms-lab/YouCook2"
+split: "val"
+
+# Optional: limit segments for testing (null = full dataset)
+sample_size: null
+
+# Output configuration
+output_dir: "experiment_stack/results"
+
+# Random seed for reproducibility
+seed: 42
+
+# Relevance rules (for documentation)
+relevance:
+  rule: "recipe_based"
+  definition: "A query is relevant to a video if they share the same recipe_type ID"
+  formula: "relevant(q, v) = (recipe_type(q) == recipe_type(v))"
+
+# Success criteria thresholds
+success_criteria:
+  GO: 0.05       # d > 0.05: significant density
+  PARTIAL: 0.01  # d in [0.01, 0.05]: moderate density
+  NO_GO: 0.01    # d < 0.01: minimal density
+
+# Baselines for comparison
+baselines:
+  MSR-VTT: 0.001
+  ActivityNet: 0.0002
+
+# Expected values (from spec)
+expected:
+  num_videos: 280  # ~280 in val split
+  num_recipes: 89
+  avg_videos_per_recipe: 3.1  # 280/89
+  expected_density: 0.011  # ~1/89
